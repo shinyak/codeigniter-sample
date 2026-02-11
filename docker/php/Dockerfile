@@ -20,6 +20,8 @@ RUN apt-get update \
         opcache \
         pdo_mysql \
         zip \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer from official image
