@@ -28,6 +28,26 @@ to your `app` folder. The affected files can be copied or merged from
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
+## Docker environment
+
+The repository ships with a simple PHP-FPM + Nginx + MySQL stack for local use.
+
+1. Copy `env` to `.env` if needed, then adjust database credentials if you change the defaults shared with `docker-compose.yml`.
+2. Build and start the containers:
+
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. Install PHP dependencies inside the PHP container (if you remove `vendor/`):
+
+   ```bash
+   docker compose exec php composer install
+   ```
+
+The application will be exposed at `http://localhost:8080` and MySQL at `localhost:3306`
+with the credentials configured in `.env`.
+
 ## Important Change with index.php
 
 `index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
