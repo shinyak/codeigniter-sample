@@ -54,8 +54,8 @@ services:
       FTP_USER_HOME: ${FTP_USER_HOME:-/home/ftpusers/testftp}
       FTP_PASSIVE_PORTS: ${FTP_PASSIVE_PORTS:-30000:30009}
     volumes:
-      - ftp_data:/home/ftpusers
-      - ftp_passwd:/etc/pure-ftpd/passwd
+      - ./docker/ftp/volume:/home/ftpusers
+      - ./docker/ftp/passwd:/etc/pure-ftpd/passwd
     expose:
       - "21"
       - "30000-30009"
@@ -64,8 +64,6 @@ services:
 
 volumes:
   db_data:
-  ftp_data:
-  ftp_passwd:
 
 networks:
   public:
