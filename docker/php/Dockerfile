@@ -15,6 +15,7 @@ RUN apt-get update \
     && docker-php-ext-install -j"$(nproc)" \
         gd \
         intl \
+        mysqli \
         mbstring \
         opcache \
         pdo_mysql \
