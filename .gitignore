@@ -127,5 +127,6 @@ _modules/*
 /phpunit*.xml
 
 # docker
+/docker/ftp/volume
 /docker/rustfs/data
 /docker/rustfs/logs

@@ -13,24 +13,15 @@ http://localhost:8080/
 
 ## Docker 開発環境
 
-### 起動方法
+### クイックスタート
 
-このリポジトリでは PHP-FPM + Nginx + MySQL によるローカル環境を利用できます。
+```bash
+cp .env.local.sample .env
 
-1. `.env.local.sample` を `.env` にコピーする
-2. コンテナをビルドし、起動する:
+docker compose up -d --build
+docker compose exec php composer install
 
-   ```bash
-   docker compose up -d --build
-   ```
+open http://localhost:8080
+```
 
-3. 依存ライブラリをインストールする
-
-   ```bash
-   docker compose exec php composer install
-   ```
-
-Webは `http://localhost:8080` でアクセスできます。
-MySQL は `localhost:3306` でアクセスできます。
-RustFSコンソールは `http://localhost:9001` でアクセスできます。
-パスワード等は `.env` に書かれたものを使用します。
+see [docker/README.md](docker/README.md)
