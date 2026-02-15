@@ -15,6 +15,7 @@ composer install
 ```bash
 cp .env.development.sample .env
 docker compose up -d --build
+./scripts/docker-post-up-init.sh
 ```
 
 ## 確認手順
