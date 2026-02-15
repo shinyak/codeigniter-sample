@@ -32,4 +32,5 @@ http://localhost:8080/
 
 Webは `http://localhost:8080` でアクセスできます。
 MySQL は `localhost:3306` でアクセスできます。
+RustFSコンソールは `http://localhost:9001` でアクセスできます。
 パスワード等は `.env` に書かれたものを使用します。
