@@ -80,9 +80,9 @@ docker compose exec -T php php spark migrate --all
 
 echo "[run] ensure bucket ${S3_BUCKET}"
 docker compose exec -T php sh -lc "
-AWS_ACCESS_KEY_ID='${S3_ACCESS_KEY}' \\
-AWS_SECRET_ACCESS_KEY='${S3_SECRET_KEY}' \\
-AWS_DEFAULT_REGION='${S3_REGION}' \\
+export AWS_ACCESS_KEY_ID='${S3_ACCESS_KEY}'
+export AWS_SECRET_ACCESS_KEY='${S3_SECRET_KEY}'
+export AWS_DEFAULT_REGION='${S3_REGION}'
 if aws --endpoint-url '${S3_ENDPOINT}' --no-cli-pager s3api head-bucket --bucket '${S3_BUCKET}' >/dev/null 2>&1; then
   echo '[ok] bucket exists'
 else
