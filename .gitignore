@@ -125,3 +125,7 @@ _modules/*
 
 /results/
 /phpunit*.xml
+
+# docker
+/docker/rustfs/data
+/docker/rustfs/logs

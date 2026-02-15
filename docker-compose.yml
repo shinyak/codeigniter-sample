@@ -66,6 +66,25 @@ services:
     networks:
       - private
 
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: ci4-rustfs
+    command: ["/data"]
+    environment:
+      RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY:-rustfsadmin}
+      RUSTFS_SECRET_KEY: ${S3_SECRET_KEY:-rustfsadmin}
+      RUSTFS_ADDRESS: ${S3_BIND_ADDRESS:-0.0.0.0:9000}
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_CONSOLE_ADDRESS: ${S3_CONSOLE_BIND_ADDRESS:-0.0.0.0:9001}
+    volumes:
+      - ./docker/rustfs/data:/data
+      - ./docker/rustfs/logs:/logs
+    expose:
+      - "9000"
+      - "9001"
+    networks:
+      - private
+
 volumes:
   db_data:
 
