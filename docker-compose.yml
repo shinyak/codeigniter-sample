@@ -94,6 +94,21 @@ services:
       - public
       - private
 
+  mailpit:
+    image: axllent/mailpit:v1.28
+    container_name: ci4-mailpit
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "1"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+      MP_SMTP_RELAY_ENABLED: "0"
+    ports:
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+    expose:
+      - "1025"
+    networks:
+      - public
+      - private
+
 volumes:
   db_data:
 
