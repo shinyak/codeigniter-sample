@@ -3,13 +3,19 @@
 以下の手順で、各サーバーが正常に動作していることを確認します。
 
 ## 前提
+
+前提：ホストPCに Docker, PHP, composer, mysqlクライアントがインストールされていること。
+
+phpコンテナは外部へのアクセスを制限しているため、composer install はホストPCで実行します。
+
+```bash
+composer install
 ```
+
+```bash
+cp .env.development.sample .env
 docker compose up -d --build
-
-docker compose exec php composer install
 ```
-
-が完了していること。
 
 ## 確認手順
 

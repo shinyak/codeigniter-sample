@@ -2,10 +2,17 @@
 
 ## クイックスタート
 
+前提：ホストPCに Docker, PHP, composer, mysqlクライアントがインストールされていること。
+
+phpコンテナは外部へのアクセスを制限しているため、composer install はホストPCで実行します。
+
+```bash
+composer install
 ```
-cp .env.local.sample .env
+
+```bash
+cp .env.development.sample .env
 docker compose up -d --build
-docker compose exec php composer install
 ```
 
 http://localhost:8080/
