@@ -79,10 +79,13 @@ services:
     volumes:
       - ./docker/rustfs/data:/data
       - ./docker/rustfs/logs:/logs
+    ports:
+      - "9001:9001"
     expose:
       - "9000"
       - "9001"
     networks:
+      - public
       - private
 
 volumes:

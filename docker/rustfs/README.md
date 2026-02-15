@@ -7,6 +7,13 @@
 
 補足:
 - RustFS コンテナは `UID 10001` で動作します。環境によっては権限エラーになるため、その場合はホスト側ディレクトリの所有者を `10001:10001` に変更してください。
+- WebUI (RustFS Console) はホストPCブラウザから `http://localhost:9001` でアクセスします。
+
+## WebUI (RustFS Console)
+
+- URL: `http://localhost:9001`
+- ログイン: `S3_ACCESS_KEY` / `S3_SECRET_KEY`（デフォルトは `rustfsadmin` / `rustfsadmin`）
+- 前提: `docker-compose.yml` で `rustfs` の `9001` がホストへ `ports` 公開されていること。
 
 ## テスト用バケット作成 (AWS CLI互換)
 
