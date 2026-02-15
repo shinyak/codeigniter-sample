@@ -107,3 +107,50 @@ docker compose exec php composer install
    ```
 
    `OK ftp upload/download` が表示されれば成功です。
+
+   docker/ftp/volumes/testftp 内に `probe.txt` が作成されていることを確認してください。
+
+7. php サーバーから FTP サーバーにアップロード/ダウンロードできることを確認する
+
+CLI から CI4 をブートして `service('email')` を使い、Mailpit 宛てに SMTP 送信する。
+
+```bash
+docker compose exec php sh -lc 'php -r '"'"'
+define("FCPATH", __DIR__ . "/public/");
+chdir(FCPATH);
+require FCPATH . "../app/Config/Paths.php";
+$paths = new Config\Paths();
+require $paths->systemDirectory . "/Boot.php";
+if (!defined("ENVIRONMENT")) {
+    define("ENVIRONMENT", getenv("CI_ENVIRONMENT") ?: "development");
+}
+CodeIgniter\Boot::bootConsole($paths);
+
+$email = service("email");
+$email->initialize([
+    "protocol"   => "smtp",
+    "SMTPHost"   => "mailpit",
+    "SMTPPort"   => 1025,
+    "SMTPUser"   => "",
+    "SMTPPass"   => "",
+    "SMTPCrypto" => "",
+    "mailType"   => "text",
+    "charset"    => "UTF-8",
+    "newline"    => "\r\n",
+    "CRLF"       => "\r\n",
+]);
+$email->setFrom("ci4@example.local", "CI4 Service");
+$email->setTo("to@example.local");
+$email->setSubject("[mailpit-check] CI4 email service");
+$email->setMessage("hello via CI4 Email service");
+$ok = $email->send(false);
+var_dump($ok);
+if (!$ok) {
+    echo $email->printDebugger(["headers"]);
+}
+'"'"''
+```
+
+`bool(true)` が表示されれば成功です。
+
+http://localhost:8025/ を開いてメールが届いていることを確認してください。
