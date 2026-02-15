@@ -3,6 +3,7 @@ FROM php:8.4-fpm
 # Install system dependencies and build tools
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        awscli \
         git \
         unzip \
         libfreetype6-dev \

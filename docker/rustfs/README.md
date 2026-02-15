@@ -13,32 +13,32 @@
 前提:
 - `docker compose up -d rustfs` 済み
 - 認証情報は `docker-compose.yml` の `S3_ACCESS_KEY` / `S3_SECRET_KEY` を使用
-- RustFS は `private` ネットワーク内なので、AWS CLIは同じネットワーク上のコンテナで実行する
+- `php` コンテナに `aws` コマンド導入済み
 
 バケット作成例 (`sample-bucket`):
 
 ```bash
-docker run --rm \
-  --network codeigniter-sample_private \
-  -e AWS_ACCESS_KEY_ID=rustfsadmin \
-  -e AWS_SECRET_ACCESS_KEY=rustfsadmin \
-  -e AWS_DEFAULT_REGION=us-east-1 \
-  amazon/aws-cli:2.17.33 \
-  --endpoint-url http://rustfs:9000 \
+docker compose exec php sh -lc '
+AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY:-rustfsadmin} \
+AWS_SECRET_ACCESS_KEY=${S3_SECRET_KEY:-rustfsadmin} \
+AWS_DEFAULT_REGION=${S3_REGION:-us-east-1} \
+aws --endpoint-url "${S3_ENDPOINT:-http://rustfs:9000}" \
+  --no-cli-pager \
   s3api create-bucket --bucket sample-bucket
+'
 ```
 
 作成確認:
 
 ```bash
-docker run --rm \
-  --network codeigniter-sample_private \
-  -e AWS_ACCESS_KEY_ID=rustfsadmin \
-  -e AWS_SECRET_ACCESS_KEY=rustfsadmin \
-  -e AWS_DEFAULT_REGION=us-east-1 \
-  amazon/aws-cli:2.17.33 \
-  --endpoint-url http://rustfs:9000 \
+docker compose exec php sh -lc '
+AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY:-rustfsadmin} \
+AWS_SECRET_ACCESS_KEY=${S3_SECRET_KEY:-rustfsadmin} \
+AWS_DEFAULT_REGION=${S3_REGION:-us-east-1} \
+aws --endpoint-url "${S3_ENDPOINT:-http://rustfs:9000}" \
+  --no-cli-pager \
   s3api list-buckets
+'
 ```
 
 ## PHP側のS3クライアント設定
